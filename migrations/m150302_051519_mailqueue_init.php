@@ -2,7 +2,7 @@
 
 use yii\db\Schema;
 use yii\db\Migration;
-use nterms\mailqueue\MailQueue;
+use annkirilenko\mailqueue\MailQueue;
 
 /**
  * Initializes the db table for MailQueue
@@ -15,7 +15,7 @@ class m150302_051519_mailqueue_init extends Migration
     {
 		$tableOptions = null;
 		if ($this->db->driverName === 'mysql') {
-			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+			$tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ENGINE=InnoDB';
 		}
 		
 		$this->createTable(Yii::$app->get(MailQueue::NAME)->table, [

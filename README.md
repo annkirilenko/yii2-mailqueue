@@ -1,8 +1,15 @@
 yii2-mailqueue
 ==============
 
-Email queue component for yii2 that works with [yii2-swiftmailer](http://www.yiiframework.com/doc-2.0/ext-swiftmailer-index.html)
+This is fork of the yii2 component [nterms/yii2-mailqueue](https://github.com/nterms/yii2-mailqueue). This component maintains 
+email queue for yii2 that works with [yii2-swiftmailer](http://www.yiiframework.com/doc-2.0/ext-swiftmailer-index.html).
 
+What's the difference?
+------------
+
+- utb8mb4 encoding with utf8mb4_0900_ai_ci collation (MySQL 8.0)
+- Keep columns from, to, cc, bcc, html_body, text_body, reply_to, charset
+- Autopurge is false by default
 
 Installation
 ------------
@@ -12,13 +19,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist nterms/yii2-mailqueue "*"
+php composer.phar require --prefer-dist annkirilenko/yii2-mailqueue "*"
 ```
 
 or add
 
 ```
-"nterms/yii2-mailqueue": "*"
+"annkirilenko/yii2-mailqueue": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -33,7 +40,7 @@ return [
     //....
     'components' => [
         'mailqueue' => [
-            'class' => 'nterms\mailqueue\MailQueue',
+            'class' => 'annkirilenko\mailqueue\MailQueue',
 			'table' => '{{%mail_queue}}',
 			'mailsPerRound' => 10,
 			'maxAttempts' => 3,
@@ -60,7 +67,7 @@ return [
     //....
     'components' => [
         'mailqueue' => [
-            'class' => 'nterms\mailqueue\MailQueue',
+            'class' => 'annkirilenko\mailqueue\MailQueue',
 			'table' => '{{%mail_queue}}',
         ],
     ],
@@ -70,7 +77,7 @@ return [
 then run `yii migrate` command in command line:
 
 ```
-php yii migrate/up --migrationPath=@vendor/nterms/yii2-mailqueue/migrations/
+php yii migrate/up --migrationPath=@vendor/annkirilenko/yii2-mailqueue/migrations/
 ```
 
 Processing the mail queue
@@ -117,7 +124,7 @@ Yii::$app->mailqueue->compose('contact/html')
      ->queue();
 ```
 
-While `nterms\mailqueue\MailQueue` extends from `yii\swiftmailer\Mailer`, you can replace it with this extension by adding 
+While `annkirilenko\mailqueue\MailQueue` extends from `yii\swiftmailer\Mailer`, you can replace it with this extension by adding 
 `yii2-swiftmailer` configuations directly to `mailqueue` configurations as follows:
 
 ```php
@@ -125,7 +132,7 @@ return [
     //....
     'components' => [
         'mailqueue' => [
-            'class' => 'nterms\mailqueue\MailQueue',
+            'class' => 'annkirilenko\mailqueue\MailQueue',
 			'table' => '{{%mail_queue}}',
 			'mailsPerRound' => 10,
 			'maxAttempts' => 3,

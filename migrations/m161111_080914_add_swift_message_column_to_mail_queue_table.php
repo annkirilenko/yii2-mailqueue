@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Migration;
-use nterms\mailqueue\MailQueue;
+use annkirilenko\mailqueue\MailQueue;
 
 /**
  * Handles adding swift_message to table `mail_queue`.

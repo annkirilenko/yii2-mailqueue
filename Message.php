@@ -5,10 +5,10 @@
  * @author Saranga Abeykoon http://nterms.com
  */
 
-namespace nterms\mailqueue;
+namespace annkirilenko\mailqueue;
 
 use Yii;
-use nterms\mailqueue\models\Queue;
+use annkirilenko\mailqueue\models\Queue;
 
 /**
  * Extends `yii\swiftmailer\Message` to enable queuing.
@@ -31,10 +31,36 @@ class Message extends \yii\swiftmailer\Message
 
         $item = new Queue();
 
+        $item->from = serialize($this->from);
+        $item->to = serialize($this->getTo());
+        $item->cc = serialize($this->getCc());
+        $item->bcc = serialize($this->getBcc());
+        $item->reply_to = serialize($this->getReplyTo());
+        $item->charset = $this->getCharset();
         $item->subject = $this->getSubject();
         $item->attempts = 0;
         $item->swift_message = base64_encode(serialize($this));
         $item->time_to_send = date('Y-m-d H:i:s', $time_to_send);
+
+        $parts = $this->getSwiftMessage()->getChildren();
+        // if message has no parts, use message
+        if ( !is_array($parts) || !sizeof($parts) ) {
+            $parts = [ $this->getSwiftMessage() ];
+        }
+
+        foreach( $parts as $part ) {
+            if( !( $part instanceof \Swift_Mime_Attachment ) ) {
+                /* @var $part \Swift_Mime_MimeEntity */
+                switch( $part->getContentType() ) {
+                    case 'text/html':
+                        $item->html_body = $part->getBody();
+                    break;
+                    case 'text/plain':
+                        $item->text_body = $part->getBody();
+                    break;
+                }
+            }
+        }
 
         return $item->save();
     }

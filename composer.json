@@ -1,8 +1,8 @@
 {
-	"name": "nterms/yii2-mailqueue",
+	"name": "annkirilenko/yii2-mailqueue",
 	"description": "Email queue component for yii2 that works with yii2-swiftmailer.",
 	"keywords": ["yii2", "extension", "component", "email", "queue", "swiftmailer", "yii2-swiftmailer"],
-	"homepage": "https://github.com/nterms/yii2-mailqueue",
+	"homepage": "https://github.com/annkirilenko/yii2-mailqueue",
 	"type": "yii2-extension",
 	"license": "MIT",
 	"authors": [
@@ -10,6 +10,10 @@
 			"name": "Saranga Abeykoon",
 			"email": "amisaranga@gmail.com",
 			"homepage": "http://nterms.com/"
+		}, 
+		{
+			"name": "Ann Kirilenko",
+			"email": "ann.kirilenko.dev@gmail.com"
 		}
 	],
 	"require": {
@@ -18,10 +22,10 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"nterms\\mailqueue\\": ""
+			"annkirilenko\\mailqueue\\": ""
 		}
 	},
         "extra": {
-            "bootstrap": "nterms\\mailqueue\\Bootstrap"            
+            "bootstrap": "annkirilenko\\mailqueue\\Bootstrap"            
         }
 }
